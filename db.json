@@ -1,0 +1,60 @@
+{
+    "users": [
+    {
+      "id": 1,
+      "name": "عارفه گلستانی",
+      "email" : "agolestani74@gmail.com",
+      "job": "کارمند",
+      "phone": "09228341451"
+    },
+    {
+        "id": 2,
+        "name": "زهرا گلستانی",
+        "email" : "zgolestani97@gmail.com",
+        "job": "کارمند",
+        "phone": "09232083365"
+      },
+      {
+        "id": 3,
+        "name": "هلدینگ الماس داده",
+        "email" : "almasdade@gmail.com",
+        "job": "برنامه نویس",
+        "phone": "02122856001"
+      },
+      {
+        "id": 4,
+        "name": "زهرا رحیم پور",
+        "email" : "zrahimpour@gmail.com",
+        "job": "برنامه نویس",
+        "phone": "09191234567"
+      },
+      {
+        "id": 5,
+        "name": "فاطمه علیپور",
+        "email" : "alipour@gmail.com",
+        "job": "حسابدار",
+        "phone": "09124236589"
+      },
+      {
+        "id": 6,
+        "name": "محمد محمدی",
+        "email" : "mohammad@gmail.com",
+        "job": "معلم",
+        "phone": "09191234567"
+      },
+      {
+        "id": 7,
+        "name": "علی رضایی",
+        "email" : "rezaei@gmail.com",
+        "job": "کارمند",
+        "phone": "09351234567"
+      },
+      {
+        "id": 8,
+        "name": "خانم محمدی",
+        "email" : "amohammadi@gmail.com",
+        "job": "استاد",
+        "phone": "09101234567"
+      }
+  ]
+}
