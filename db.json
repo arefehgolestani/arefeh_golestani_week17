@@ -1,5 +1,5 @@
 {
-    "users": [
+    "contacts": [
     {
       "id": 1,
       "name": "عارفه گلستانی",
@@ -48,13 +48,7 @@
         "email" : "rezaei@gmail.com",
         "job": "کارمند",
         "phone": "09351234567"
-      },
-      {
-        "id": 8,
-        "name": "خانم محمدی",
-        "email" : "amohammadi@gmail.com",
-        "job": "استاد",
-        "phone": "09101234567"
       }
+     
   ]
 }

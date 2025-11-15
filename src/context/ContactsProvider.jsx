@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom"
 import ContactsContext from "./ContactsContext";
 
 import Modal from "../components/Modal.jsx";
@@ -90,3 +90,4 @@ function ContactsProvider({ children }) {
 }
 
 export default ContactsProvider;
+

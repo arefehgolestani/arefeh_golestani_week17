@@ -11,7 +11,6 @@ import Modal from "../components/Modal";
 import Alert from "../components/Alert";
 
 function AddContactPage() {
-
   const {
     contact,
     setContact,
