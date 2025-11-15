@@ -3,21 +3,26 @@ import { ImPlus } from "react-icons/im";
 import { FaTrashAlt } from "react-icons/fa";
 import { TiArrowBack } from "react-icons/ti";
 import { useState } from "react";
+import { useContext } from "react";
 
+import ContactsContext from "../context/ContactsContext";
 import ContactItem from "../components/ContactItem.jsx";
 import styles from "./HomePage.module.css";
 import Alert from "../components/Alert";
 import Search from "../components/Search.jsx";
 
-function HomePage({
-  contacts,
-  setModal,
-  alert,
-  setAlert,
-  editHandler,
-  deleteHandler,
-  deleteSelectedContacts,
-}) {
+function HomePage() {
+  const {
+    contacts,
+    alert,
+    setAlert,
+    modal,
+    setModal,
+    deleteHandler,
+    editHandler,
+    deleteSelectedContacts,
+  } = useContext(ContactsContext);
+
   const [search, setSearch] = useState("");
   const [deleteButton, setDeleteButton] = useState(false);
   const [selectedContacts, setSelectedContacts] = useState([]);

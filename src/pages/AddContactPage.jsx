@@ -2,22 +2,27 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { v4 } from "uuid";
 import { ImAddressBook } from "react-icons/im";
 import { useEffect } from "react";
+import { useContext } from "react";
 
+import ContactsContext from "../context/ContactsContext";
 import styles from "./AddContactPage.Module.css";
 import inputs from "../constants/inputs.js";
 import Modal from "../components/Modal";
 import Alert from "../components/Alert";
 
-function AddContactPage({
-  contact,
-  setContact,
-  contacts,
-  setContacts,
-  modal,
-  setModal,
-  alert,
-  setAlert,
-}) {
+function AddContactPage() {
+
+  const {
+    contact,
+    setContact,
+    contacts,
+    setContacts,
+    alert,
+    setAlert,
+    modal,
+    setModal,
+  } = useContext(ContactsContext);
+
   const navigate = useNavigate();
   const location = useLocation();
   const contactToEdit = location.state;
