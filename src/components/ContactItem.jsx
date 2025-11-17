@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import ContactsContext from "../context/ContactsContext";
+
 import styles from "./ContactItem.module.css";
 import Modal from "../components/Modal";
 
@@ -5,18 +8,20 @@ function ContactItem({
   deleteHandler,
   editHandler,
   data: { id, name, email, phone },
-  modal,
-  setModal,
   deleteButton,
   toggleSelect,
 }) {
+  const { modal, dispatch } = useContext(ContactsContext);
   const openDeleteModal = () => {
-    setModal({
-      title: "حذف مخاطب",
-      message: "آیا از حذف این مخاطب اطمینان دارید؟",
-      confirmText: "حذف",
-      cancelText: "انصراف",
-      onConfirm: () => deleteHandler(id),
+    dispatch({
+      type: "SET_MODAL",
+      payload: {
+        title: "حذف مخاطب",
+        message: "آیا از حذف این مخاطب اطمینان دارید؟",
+        confirmText: "حذف",
+        cancelText: "انصراف",
+        onConfirm: () => deleteHandler(id),
+      },
     });
   };
 
@@ -44,7 +49,7 @@ function ContactItem({
           confirmText={modal.confirmText}
           cancelText={modal.cancelText}
           onConfirm={modal.onConfirm}
-          onCancel={() => setModal(null)}
+          onCancel={() => dispatch({ type: "CLEAR_MODAL" })}
         />
       )}
     </li>

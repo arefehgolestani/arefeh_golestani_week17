@@ -15,9 +15,8 @@ function HomePage() {
   const {
     contacts,
     alert,
-    setAlert,
     modal,
-    setModal,
+    dispatch,
     deleteHandler,
     editHandler,
     deleteSelectedContacts,
@@ -35,7 +34,7 @@ function HomePage() {
         return [...prevSelected, id];
       }
     });
-    setModal(null);
+    dispatch({ type: "CLEAR_MODAL" });
   };
 
   const filteredContacts = search
@@ -53,28 +52,34 @@ function HomePage() {
 
   const selectedDeleteButton = () => {
     if (selectedContacts.length === 0) {
-      setAlert({
-        type: "warning",
-        message: "هیچ مخاطبی انتخاب نشده است !",
+      dispatch({
+        type: "SET_ALERT",
+        payload: { type: "warning", message: "هیچ مخاطبی انتخاب نشده است !" },
       });
     } else {
-      setModal({
-        title: "حذف گروهی مخاطبین",
-        message: `آیا از حذف ${selectedContacts.length} مخاطب  اطمینان دارید؟ `,
-        confirmText: "حذف",
-        cancelText: "انصراف",
-        onConfirm: () => selectedDeleteHandler(),
+      dispatch({
+        type: "SET_MODAL",
+        payload: {
+          title: "حذف گروهی مخاطبین",
+          message: `آیا از حذف ${selectedContacts.length} مخاطب  اطمینان دارید؟ `,
+          confirmText: "حذف",
+          cancelText: "انصراف",
+          onConfirm: () => selectedDeleteHandler(),
+        },
       });
     }
   };
   const selectedDeleteHandler = () => {
     deleteSelectedContacts(selectedContacts);
     setSelectedContacts([]);
-    setModal(null);
+    dispatch({ type: "CLEAR_MODAL" });
     setDeleteButton(false);
-    setAlert({
-      type: "success",
-      message: `${selectedContacts.length} مخاطب حذف شد.`,
+    dispatch({
+      type: "SET_ALERT",
+      payload: {
+        type: "success",
+        message: `${selectedContacts.length} مخاطب حذف شد.`,
+      },
     });
   };
 
@@ -85,7 +90,7 @@ function HomePage() {
           <Alert
             type={alert.type}
             message={alert.message}
-            onClose={() => setAlert(null)}
+            onClose={() => dispatch({ type: "CLEAR_ALERT" })}
           />
         )}
 
@@ -131,7 +136,7 @@ function HomePage() {
                 <ContactItem
                   key={contact.id}
                   data={contact}
-                  setModal={setModal}
+                  dispatch={dispatch}
                   deleteHandler={deleteHandler}
                   editHandler={editHandler}
                   deleteButton={deleteButton}

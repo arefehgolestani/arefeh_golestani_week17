@@ -1,25 +1,17 @@
-import { useState, useEffect } from "react";
-import {useNavigate} from "react-router-dom"
+import { useReducer, useEffect } from "react";
+
+import { useNavigate } from "react-router-dom";
 import ContactsContext from "./ContactsContext";
 
 import Modal from "../components/Modal.jsx";
 import Alert from "../components/Alert.jsx";
 
-function ContactsProvider({ children }) {
-  const [contacts, setContacts] = useState(() => {
-    const saved = localStorage.getItem("contacts");
-    return saved ? JSON.parse(saved) : [];
-  });
-  const [contact, setContact] = useState({
-    id: "",
-    name: "",
-    email: "",
-    job: "",
-    phone: "",
-  });
+import { initialState } from "../constants/initialState";
+import { contactsReducer } from "./contactsReducer";
 
-  const [alert, setAlert] = useState(null);
-  const [modal, setModal] = useState(null);
+function ContactsProvider({ children }) {
+  const [state, dispatch] = useReducer(contactsReducer, initialState);
+  const { contacts, contact, alert, modal } = state;
 
   useEffect(() => {
     localStorage.setItem("contacts", JSON.stringify(contacts));
@@ -27,18 +19,19 @@ function ContactsProvider({ children }) {
 
   const deleteHandler = (id) => {
     const newContacts = contacts.filter((contact) => contact.id !== id);
-    setContacts(newContacts);
-    setModal(null);
-    setAlert({
-      type: "warning",
-      message: "مخاطب حذف شد!",
+
+    dispatch({ type: "SET_CONTACTS", payload: newContacts });
+
+    dispatch({ type: "CLEAR_MODAL" });
+    dispatch({
+      type: "SET_ALERT",
+      payload: { type: "warning", message: "مخاطب حذف شد!" },
     });
   };
 
   const deleteSelectedContacts = (selectedIds) => {
-    setContacts((prevContacts) =>
-      prevContacts.filter((contact) => !selectedIds.includes(contact.id))
-    );
+    const newContacts = contacts.filter((c) => !selectedIds.includes(c.id));
+    dispatch({ type: "SET_CONTACTS", payload: newContacts });
   };
 
   const navigate = useNavigate();
@@ -51,14 +44,8 @@ function ContactsProvider({ children }) {
   return (
     <ContactsContext.Provider
       value={{
-        contacts,
-        setContacts,
-        contact,
-        setContact,
-        alert,
-        setAlert,
-        modal,
-        setModal,
+        ...state,
+        dispatch,
         deleteHandler,
         deleteSelectedContacts,
         editHandler,
@@ -71,7 +58,7 @@ function ContactsProvider({ children }) {
           type={alert.type}
           message={alert.message}
           duration={alert.duration || 2000}
-          onClose={() => setAlert(null)}
+          onClose={() => dispatch({ type: "CLEAR_ALERT" })}
         />
       )}
 
@@ -82,7 +69,7 @@ function ContactsProvider({ children }) {
           confirmText={modal.confirmText}
           cancelText={modal.cancelText}
           onConfirm={modal.onConfirm}
-          onCancel={() => setModal(null)}
+          onCancel={() => dispatch({ type: "CLEAR_MODAL" })}
         />
       )}
     </ContactsContext.Provider>
